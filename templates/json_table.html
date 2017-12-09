@@ -1,21 +1,47 @@
 <html>
   <head>
-    <title>Around the world!</title>
+    <title>Book Reviews</title>
      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tables.css')}}">
+     <style>
+table {
+    width:100%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table#t01 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t01 th {
+    background-color: black;
+    color: white;
+}
+</style>
   </head>
   <body>
-    <table  BORDER="5"    WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
+    <table  id="t01">
+    <caption >Book Reviews</caption>
      <thead>
        <tr>
-         <th class="text-left">City</th>
-         <th class="text-left">State</th>
+         <th class="text-left">Book</th>
+         <th class="text-left">Author</th>
+	 <th class="text-left">Review</th>
        </tr>
      </thead>
      <tbody>
        {% for post in posts %}
          <tr>
-         <td class="text-left">{{ post.city }}</td>
-	 <td class="text-left">{{ post.state}}</td>
+         <td class="text-left">{{ post.book }}</td>
+	 <td class="text-left">{{ post.author}}</td>
+	 <td class="text-left">{{ post.review}}</td>
          </tr> 
        {% endfor %}
      </tbody>
