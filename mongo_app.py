@@ -4,6 +4,9 @@ from flask import request
 from flask import render_template
 from flask_pymongo import PyMongo
 import os
+import logging
+
+logging.basicConfig(filename='mongo_app.log',level=logging.DEBUG)
 
 app = Flask(__name__)
 
