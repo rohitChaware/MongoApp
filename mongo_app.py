@@ -56,4 +56,4 @@ def add_book_review():
   return render_template('json_table.html',  posts=output)
 
 if __name__ == '__main__':
-    app.run(port=80)
+    app.run(host='0.0.0.0', port=80)
