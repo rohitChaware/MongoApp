@@ -17,6 +17,10 @@ app.config['MONGO_URI'] = 'mongodb://' + MONGO_URL + '/' + MONGO_DBNAME
 
 mongo = PyMongo(app)
 
+@app.route('/')
+def home():
+  return render_template('home.html')
+
 @app.route('/add')
 def new_entry():
   return render_template('entry_form.html')
@@ -54,8 +58,12 @@ def add_book_review():
   author = request.form['author']
   review = request.form['review']
   review_id = reviews.insert({'book': book, 'author': author, 'review':  review})
-  new_review = reviews.find_one({'_id': review_id })
-  output = [{'book' : new_review['book'], 'author' : new_review['author'], 'review': new_review['review']}]
+  #new_review = reviews.find_one({'_id': review_id })
+  #output = [{'book' : new_review['book'], 'author' : new_review['author'], 'review': new_review['review']}]
+  reviews = mongo.db.reviews
+  output = []
+  for s in reviews.find():
+    output.append({'book' : s['book'], 'author' : s['author'], 'review': s['review']})
   return render_template('json_table.html',  posts=output)
 
 if __name__ == '__main__':
