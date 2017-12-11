@@ -27,8 +27,10 @@ def new_entry():
 
 @app.route('/test', methods=['GET'])
 def test():
-  output = {'/all': 'To get all records', '/add': 'To add a json record'}
-  return jsonify({'Success. Url Info' : output})
+  result = mongo.db.command('ping')
+  url_info = {'/': 'Book Reviews home page', '/all': 'To get all records', '/add': 'To add a json record'}
+  output = {'MongoDB_ping_status':result, 'url_info': url_info  }
+  return jsonify(output)
 
 @app.route('/all', methods=['GET'])
 def get_all():
