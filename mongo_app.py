@@ -2,6 +2,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import render_template
+from flask import Response
 from flask_pymongo import PyMongo
 import os
 import logging
@@ -31,6 +32,10 @@ def test():
   url_info = {'/': 'Book Reviews home page', '/all': 'To get all records', '/add': 'To add a json record'}
   output = {'MongoDB_ping_status':result, 'url_info': url_info  }
   return jsonify(output)
+
+@app.route('/healthcheck', methods=['GET'])
+def healthcheck():
+  return Response("{'app_status':'success'}", status=200, mimetype='application/json')
 
 @app.route('/all', methods=['GET'])
 def get_all():
