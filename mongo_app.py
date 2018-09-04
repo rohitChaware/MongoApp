@@ -11,6 +11,7 @@ logging.basicConfig(filename='mongo_app.log',level=logging.DEBUG)
 
 app = Flask(__name__)
 
+
 MONGO_DBNAME = 'demo'
 app.config['MONGO_DBNAME'] = MONGO_DBNAME
 MONGO_URL = os.environ['MONGO_URL']
@@ -72,6 +73,18 @@ def add_book_review():
   for s in reviews.find():
     output.append({'book' : s['book'], 'author' : s['author'], 'review': s['review']})
   return render_template('json_table.html',  posts=output)
+
+@app.route('/http_host', methods=['GET'])
+def http_host():
+  http_host = os.uname()[1]
+  output = {'Http Request Served from host':http_host }
+  return jsonify(output)
+
+@app.route('/https_host', methods=['GET'])
+def https_host():
+  https_host = os.uname()[1]
+  output = {'Https Request Served from host':https_host }
+  return jsonify(output)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
